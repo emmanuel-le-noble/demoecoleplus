@@ -1,0 +1,8 @@
+
+*.log
+node_modules/
+.idea/
+.vscode/
+.env
+**/.env
+normal/production/vendor/

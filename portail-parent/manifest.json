@@ -1,0 +1,40 @@
+{
+    "name": "Ecole Plus - Portail Parent",
+    "short_name": "Ecole Plus",
+    "description": "Portail parent pour le suivi scolaire en temps réel : notes, absences, devoirs, messagerie et paiements.",
+    "start_url": "/demoecoleplus/portail-parent/dashboard/dashboard.php",
+    "scope": "/demoecoleplus/portail-parent/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "theme_color": "#10b981",
+    "background_color": "#f0fdf8",
+    "lang": "fr",
+    "icons": [
+        {
+            "src": "/demoecoleplus/portail-parent/assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/demoecoleplus/portail-parent/assets/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Notes & Bulletins",
+            "short_name": "Notes",
+            "url": "/demoecoleplus/portail-parent/notes/notes.php",
+            "icons": [{ "src": "/demoecoleplus/portail-parent/assets/icons/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Messagerie",
+            "short_name": "Messages",
+            "url": "/demoecoleplus/portail-parent/messagerie/messagerie.php",
+            "icons": [{ "src": "/demoecoleplus/portail-parent/assets/icons/icon-192.png", "sizes": "192x192" }]
+        }
+    ]
+}

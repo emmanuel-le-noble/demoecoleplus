@@ -1,0 +1,36 @@
+body
+{
+	font-family : Microsoft Sans Serif;
+}
+
+.design td{
+    border:1px dotted #000;
+	font-size:12px;
+	font-family : Microsoft Sans Serif;
+	margin-left: 10px;
+}
+
+span{
+	font-size:12px;
+	font-family : Microsoft Sans Serif;
+}
+
+span b{
+	margin-bottom : 50px;
+}
+
+td{
+	font-size:12px;
+	font-family : Microsoft Sans Serif;
+	margin-left: 10px;
+}
+
+#filigrane
+{
+	background-repeat:no-repeat;
+	background-position:center;
+}
+
+
+
+
