@@ -1,0 +1,756 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ===========================================================================
+   DESIGN SYSTEM — Ecole Plus
+   Interface institutionnelle : surfaces claires, profondeur douce et accents
+   bleu pétrole / turquoise, dans le même esprit que la page de connexion.
+   ========================================================================== */
+:root {
+    --bg-main: #edf5f5;
+    --bg-sidebar: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.82);
+    --border-glass: rgba(15, 49, 61, 0.10);
+    --border-glow: #0f766e;
+    --text-main: #17313d;
+    --color-success: #0f766e;
+    --color-info: #0e7490;
+    --color-warning: #d97706;
+    --color-danger: #dc2626;
+}
+body { background: #edf5f5; color: var(--text-main); }
+.main-content { background-color: var(--bg-main); background-image: radial-gradient(circle at 90% 3%, rgba(20, 184, 166, 0.14), transparent 25rem), radial-gradient(circle at 5% 97%, rgba(14, 116, 144, 0.10), transparent 28rem), linear-gradient(140deg, #f8fbfb 0%, #edf6f5 54%, #eef3f8 100%); }
+.sidebar { background: rgba(255, 255, 255, 0.94); border-right-color: rgba(15, 49, 61, 0.09); box-shadow: 8px 0 30px rgba(15, 49, 61, 0.05); backdrop-filter: blur(18px); }
+.sidebar .icon-box, .icon-box-mobile { background: rgba(15, 118, 110, 0.11) !important; }
+.child-selector-card { background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(14, 116, 144, 0.06)); border-color: rgba(15, 118, 110, 0.22); }
+.child-selector { background: rgba(255, 255, 255, 0.68); }
+.sidebar .nav-link { color: #58707b; }
+.sidebar .nav-link:hover { color: #0f5f5a; background: rgba(15, 118, 110, 0.07); }
+.sidebar .nav-link.active { color: #0f766e !important; background: linear-gradient(90deg, rgba(15, 118, 110, 0.15), rgba(15, 118, 110, 0.03)) !important; border-left-color: #0f766e; }
+.liquid-card { background: rgba(255, 255, 255, 0.78); border-color: rgba(255, 255, 255, 0.92); border-radius: 18px; box-shadow: 0 14px 35px rgba(15, 49, 61, 0.07); backdrop-filter: blur(16px) saturate(125%); }
+.liquid-card:hover { border-color: rgba(20, 184, 166, 0.30); box-shadow: 0 16px 38px rgba(15, 118, 110, 0.12); }
+.welcome-banner { background: linear-gradient(135deg, rgba(15, 118, 110, 0.11), rgba(14, 116, 144, 0.05)); border-color: rgba(15, 118, 110, 0.16); }
+.topbar-mobile, .mobile-bottom-nav { background: rgba(255, 255, 255, 0.86) !important; border-color: rgba(15, 49, 61, 0.08) !important; }
+.top-search-bar, .form-control, .form-select { border-color: rgba(15, 49, 61, 0.12); border-radius: 11px; color: var(--text-main); }
+.top-search-bar { background: rgba(255, 255, 255, 0.64); }
+.form-control:focus, .form-select:focus, .top-search-bar:focus { border-color: rgba(15, 118, 110, 0.55); box-shadow: 0 0 0 .22rem rgba(15, 118, 110, 0.12); }
+.btn-success, .btn-glass-success { border-color: #0f766e; background: linear-gradient(105deg, #0f766e, #0e9388); box-shadow: 0 8px 18px rgba(15, 118, 110, 0.16); }
+.btn-success:hover, .btn-glass-success:hover { border-color: #0b5f59; background: linear-gradient(105deg, #0b5f59, #0f766e); color: #fff; }
+.list-item-glass { background: rgba(255,255,255,.52); border-color: rgba(15,49,61,.06); }
+.list-item-glass:hover { background: rgba(15,118,110,.06); }
+.mobile-bottom-nav .nav-mobile-item.active, .text-success { color: #0f766e !important; }
+
+/* ==========================================================================
+   EDUPORTAL - GLOBAL VARIABLES & THEME LIGHT (LIQUID GLASS)
+   ========================================================================== */
+:root {
+    /* Palette institutionnelle sobre : bleu ardoise, blanc et vert émeraude. */
+    --bg-main: #f3f6fa;
+    --bg-sidebar: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.82);
+    --border-glass: rgba(15, 23, 42, 0.08);
+    --border-glow: #059669;
+    
+    /* Typographie : Inversion pour une lecture sur fond clair */
+    --text-main: #1e293b;
+    
+    /* Couleurs fonctionnelles adaptées pour le mode clair */
+    --color-success: #10b981;
+    --color-info: #06b6d4;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+}
+
+body {
+    background: #eef2f7;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Layout structural : Sidebar fixe à gauche + Contenu principal */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 1.5rem;
+    /* Fond discret, lumineux et sans image décorative : plus lisible et pérenne. */
+    background-color: var(--bg-main);
+    background-image:
+        radial-gradient(circle at 92% 4%, rgba(16, 185, 129, 0.11), transparent 25rem),
+        radial-gradient(circle at 4% 96%, rgba(14, 116, 144, 0.08), transparent 28rem),
+        linear-gradient(135deg, #f8fafc 0%, #eef4f8 52%, #f4f7f5 100%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    transition: margin-left 0.3s ease;
+}
+
+/* ==========================================================================
+   COMPOSANT : SIDEBAR FIXED (CONFIGURÉE POUR GRAND ÉCRAN UNIQUEMENT)
+   ========================================================================== */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-content: space-between;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.96);
+    border-right: 1px solid var(--border-glass);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02); /* Légère ombre portée à droite */
+    z-index: 1000;
+}
+
+.sidebar .icon-box {
+    background: rgba(16, 185, 129, 0.1);
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.child-selector{
+    background: #ffffff3b;
+    border-radius: 5px;
+}
+
+/* Sélecteur d'enfant style Glass */
+.child-selector-card {
+    background: rgba(0, 167, 111, 0.13);
+    border: 1px solid var(--border-glow);
+    border-radius: 12px;
+}
+
+.avatar-circle, .avatar-parent {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+.avatar-parent {
+    background: linear-gradient(135deg, #94a3b8, #64748b);
+}
+
+.child-select {
+    background: transparent !important;
+    border: none !important;
+    color: var(--text-main) !important;
+    font-weight: 600;
+    padding: 0 1.5rem 0 0.5rem !important;
+    font-size: 14px;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+.child-select option {
+    background-color: var(--bg-sidebar);
+    color: var(--text-main);
+}
+
+/* Navigation links */
+.sidebar .nav-link {
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 0.3rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.sidebar .nav-link.active {
+    color: var(--color-success) !important;
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-left: 3px solid var(--color-success);
+    border-radius: 0 10px 10px 0;
+}
+
+/* ==========================================================================
+   COMPOSANTS : EFFET LIQUID GLASS (CARTES ET COMPOSANTS)
+   ========================================================================== */
+.liquid-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    /* Ombre plus douce, diffuse et réaliste pour le mode clair */
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.liquid-card:hover {
+    border-color: var(--border-glow);
+    box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.1);
+}
+
+/* Bannière de bienvenue spécifique */
+.welcome-banner {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.01) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+/* Cartes Statistiques (Moyenne, Absences...) */
+.stat-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* Badges & Textes Dynamiques (Modifiés pour éviter l'effet "néon craché" illisible sur fond blanc) */
+.text-success-glow { color: #065f46; font-weight: 600; }
+.text-danger-glow { color: #991b1b; font-weight: 600; }
+.text-warning-glow { color: #9a3412; font-weight: 600; }
+.text-info-glow { color: #0369a1; font-weight: 600; }
+
+/* Listes et lignes d'affichage (Classes récentes, devoirs) */
+.list-item-glass {
+    background: rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+    transition: background 0.2s;
+}
+
+.list-item-glass:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.icon-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Barre de progression de la carte Finance */
+.custom-progress {
+    height: 6px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+.custom-progress-bar {
+    background: linear-gradient(90deg, var(--color-warning) 0%, #ea580c 100%);
+    border-radius: 3px;
+}
+
+/* Boutons d'actions */
+.btn-glass-success {
+    background: var(--color-success);
+    color: white;
+    border: none;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+.btn-glass-success:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgb(16, 185, 129);
+    color:  rgb(16, 185, 129);
+}
+
+/* Barre recherche Topbar */
+.top-search-bar {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--border-glass);
+    color: var(--text-main);
+    border-radius: 12px;
+    padding-left: 2.5rem;
+}
+.top-search-bar:focus {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: var(--text-main);
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   BARRE DE NAVIGATION BASSE (MOBILE)
+   ========================================================================== */
+.mobile-bottom-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.04);
+    z-index: 1050;
+}
+
+.nav-mobile-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 11px;
+    transition: all 0.2s ease;
+    padding: 5px 10px;
+}
+
+.nav-mobile-item i {
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.nav-mobile-item.active {
+    color: var(--color-success);
+}
+
+.nav-mobile-item:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================================
+   BREAKPOINTS RESPONSIVE NETS (GESTION DU CONFLIT MOBILE VS PC)
+   ========================================================================== */
+
+/* 1. COMPORTEMENT SUR SMARTPHONES ET TABLETTES */
+@media (max-width: 991.98px) {
+    .sidebar {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        padding: 12px !important;
+    }
+
+    body {
+        padding-bottom: 75px !important;
+    }
+
+    .welcome-banner h4 {
+        font-size: 1.15rem;
+    }
+    .liquid-card h2 {
+        font-size: 1.4rem !important;
+    }
+}
+
+/* 2. COMPORTEMENT SUR PC */
+@media (min-width: 992px) {
+    .sidebar {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .main-content {
+        margin-left: 250px !important;
+        
+    }
+}
+
+/* ==========================================================================
+   3. STYLES SPECIFIQUES POUR LA TOPBAR MOBILE & DROPDOWNS
+   ========================================================================== */
+.topbar-mobile {
+    position: relative;
+    z-index: 1030;
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+.topbar-mobile .dropdown-menu {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 12px;
+}
+
+.topbar-mobile .dropdown-item {
+    transition: all 0.2s ease;
+}
+
+.topbar-mobile .dropdown-item:hover {
+    background-color: rgba(16, 185, 129, 0.08) !important;
+    color: #059669 !important;
+    padding-left: 1.25rem;
+}
+
+/* ==========================================================================
+   4. TIROIR DE NAVIGATION MOBILE (OFFCANVAS SIDEBAR)
+   ========================================================================== */
+.offcanvas .nav-link {
+    transition: all 0.2s ease;
+}
+
+.offcanvas .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+    color: var(--text-main) !important;
+    padding-left: 1.25rem;
+}
+
+.offcanvas .nav-link.active {
+    color: var(--color-success) !important;
+    background-color: rgba(16, 185, 129, 0.1) !important;
+    border-left: 3px solid var(--color-success);
+    border-radius: 0 8px 8px 0 !important;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   5. SYSTÈME DE NOTIFICATIONS TOAST (LIQUID GLASS)
+   ========================================================================== */
+
+/* Keyframes pour l'entrée et la sortie du toast */
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%) scale(0.9);
+    }
+}
+
+/* Conteneur global des toasts - coin supérieur droit sur desktop, centré en haut sur mobile */
+.toast-portal-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 360px;
+    width: calc(100% - 40px);
+}
+
+@media (max-width: 576px) {
+    .toast-portal-container {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        max-width: 100%;
+        width: auto;
+    }
+}
+
+/* Base du toast */
+.glass-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    pointer-events: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Barre de progression en bas du toast */
+.glass-toast::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 0 0 14px 14px;
+    animation: toastProgress linear forwards;
+    animation-duration: inherit;
+}
+
+/* Icône du toast */
+.glass-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+}
+
+/* Corps du toast */
+.glass-toast-body {
+    flex: 1;
+}
+
+.glass-toast-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: #1e293b;
+}
+
+.glass-toast-message {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.4;
+}
+
+/* Bouton de fermeture */
+.glass-toast-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(0,0,0,0.3);
+    padding: 0;
+    font-size: 16px;
+    line-height: 1;
+    transition: color 0.2s;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.glass-toast-close:hover { color: rgba(0,0,0,0.6); }
+
+/* Variantes de couleurs */
+.glass-toast.toast-success {
+    border-left: 4px solid #10b981;
+}
+.glass-toast.toast-success .glass-toast-icon {
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+.glass-toast.toast-success::after {
+    background: linear-gradient(90deg, #10b981, #34d399);
+    width: 0%;
+    animation-name: toastProgressSuccess;
+}
+
+.glass-toast.toast-error {
+    border-left: 4px solid #ef4444;
+}
+.glass-toast.toast-error .glass-toast-icon {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+.glass-toast.toast-error::after {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+    width: 0%;
+    animation-name: toastProgressError;
+}
+
+.glass-toast.toast-info {
+    border-left: 4px solid #06b6d4;
+}
+.glass-toast.toast-info .glass-toast-icon {
+    background: rgba(6, 182, 212, 0.1);
+    color: #0891b2;
+}
+.glass-toast.toast-info::after {
+    background: linear-gradient(90deg, #06b6d4, #67e8f9);
+    width: 0%;
+    animation-name: toastProgressInfo;
+}
+
+.glass-toast.toast-warning {
+    border-left: 4px solid #f59e0b;
+}
+.glass-toast.toast-warning .glass-toast-icon {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+.glass-toast.toast-warning::after {
+    background: linear-gradient(90deg, #f59e0b, #fcd34d);
+    width: 0%;
+    animation-name: toastProgressWarning;
+}
+
+@keyframes toastProgressSuccess { from { width: 0%; } to { width: 100%; } }
+@keyframes toastProgressError   { from { width: 0%; } to { width: 100%; } }
+@keyframes toastProgressInfo    { from { width: 0%; } to { width: 100%; } }
+@keyframes toastProgressWarning { from { width: 0%; } to { width: 100%; } }
+
+.glass-toast.toast-hiding {
+    animation: toastSlideOut 0.3s ease-in forwards;
+}
+
+/* ==========================================================================
+   6. STYLES D'IMPRESSION (PRINT) - Éviter les cassures dans les éléments
+   ========================================================================== */
+@media print {
+    body {
+        background: #fff !important;
+        font-size: 11px;
+    }
+
+    .sidebar,
+    .mobile-bottom-nav,
+    .topbar-mobile,
+    .print-controls,
+    .toast-portal-container,
+    .btn-glass-success,
+    .btn-outline-success,
+    .btn-outline-secondary {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+    }
+
+    .liquid-card {
+        background: #fff !important;
+        backdrop-filter: none !important;
+        border: 1px solid #dee2e6 !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    table, tr, td, th {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .table-responsive {
+        overflow: visible !important;
+    }
+
+    .info-card, .info-grid > div {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .summary-grid, .summary-item {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .row > div {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .list-item-glass {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .welcome-banner {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    a[href]::after {
+        content: none !important;
+    }
+}
+
+/* Thème final, placé après les styles historiques pour harmoniser tout le portail. */
+:root { --bg-main:#edf5f5; --bg-sidebar:#fff; --bg-card:rgba(255,255,255,.82); --border-glass:rgba(15,49,61,.10); --border-glow:#0f766e; --text-main:#17313d; --color-success:#0f766e; --color-info:#0e7490; --color-warning:#d97706; --color-danger:#dc2626; }
+body { background:#edf5f5; color:var(--text-main); }
+.main-content { background-color:var(--bg-main); background-image:radial-gradient(circle at 90% 3%,rgba(20,184,166,.14),transparent 25rem),radial-gradient(circle at 5% 97%,rgba(14,116,144,.10),transparent 28rem),linear-gradient(140deg,#f8fbfb 0%,#edf6f5 54%,#eef3f8 100%); }
+.sidebar { background:rgba(255,255,255,.94); border-right-color:rgba(15,49,61,.09); box-shadow:8px 0 30px rgba(15,49,61,.05); backdrop-filter:blur(18px); }
+.sidebar .icon-box, .icon-box-mobile { background:rgba(15,118,110,.11) !important; }
+.child-selector-card { background:linear-gradient(135deg,rgba(15,118,110,.12),rgba(14,116,144,.06)); border-color:rgba(15,118,110,.22); }
+.child-selector { background:rgba(255,255,255,.68); }
+.sidebar .nav-link { color:#58707b; }
+.sidebar .nav-link:hover { color:#0f5f5a; background:rgba(15,118,110,.07); }
+.sidebar .nav-link.active { color:#0f766e !important; background:linear-gradient(90deg,rgba(15,118,110,.15),rgba(15,118,110,.03)) !important; border-left-color:#0f766e; }
+.liquid-card { background:rgba(255,255,255,.78); border-color:rgba(255,255,255,.92); border-radius:18px; box-shadow:0 14px 35px rgba(15,49,61,.07); backdrop-filter:blur(16px) saturate(125%); }
+.liquid-card:hover { border-color:rgba(20,184,166,.30); box-shadow:0 16px 38px rgba(15,118,110,.12); }
+.welcome-banner { background:linear-gradient(135deg,rgba(15,118,110,.11),rgba(14,116,144,.05)); border-color:rgba(15,118,110,.16); }
+.topbar-mobile, .mobile-bottom-nav { background:rgba(255,255,255,.86) !important; border-color:rgba(15,49,61,.08) !important; }
+.top-search-bar, .form-control, .form-select { border-color:rgba(15,49,61,.12); border-radius:11px; color:var(--text-main); }
+.top-search-bar { background:rgba(255,255,255,.64); }
+.form-control:focus, .form-select:focus, .top-search-bar:focus { border-color:rgba(15,118,110,.55); box-shadow:0 0 0 .22rem rgba(15,118,110,.12); }
+.btn-success, .btn-glass-success { border-color:#0f766e; background:linear-gradient(105deg,#0f766e,#0e9388); box-shadow:0 8px 18px rgba(15,118,110,.16); }
+.btn-success:hover, .btn-glass-success:hover { border-color:#0b5f59; background:linear-gradient(105deg,#0b5f59,#0f766e); color:#fff; }
+.list-item-glass { background:rgba(255,255,255,.52); border-color:rgba(15,49,61,.06); }
+.list-item-glass:hover { background:rgba(15,118,110,.06); }
+.mobile-bottom-nav .nav-mobile-item.active, .text-success { color:#0f766e !important; }
+.profile-trigger { transition: opacity .2s ease; }
+.profile-trigger:hover { opacity: .8; }
+@media print { .main-content { background:#fff !important; } .liquid-card { background:#fff !important; box-shadow:none !important; } }
+
+.theme-toggle { display:inline-flex; align-items:center; gap:.5rem; min-height:36px; padding:.42rem .72rem; border:1px solid rgba(15,49,61,.12); border-radius:10px; background:rgba(255,255,255,.68); color:#36515e; font-size:.76rem; font-weight:600; transition:background .2s ease, color .2s ease, border-color .2s ease; }
+.theme-toggle:hover { border-color:rgba(15,118,110,.38); background:rgba(15,118,110,.08); color:#0f766e; }
+.theme-toggle-mobile { width:35px; height:35px; min-height:35px; justify-content:center; padding:0; border-radius:50%; }
+
+html[data-theme="dark"] { color-scheme:dark; --bg-main:#102a35; --bg-sidebar:#132f3b; --bg-card:rgba(23,55,66,.84); --border-glass:rgba(175,221,218,.14); --border-glow:#2dd4bf; --text-main:#e5f4f2; --color-success:#2dd4bf; --color-info:#67c7e5; --color-warning:#fbbf24; --color-danger:#fb7185; }
+html[data-theme="dark"] body { background:#102a35; color:#e5f4f2; }
+html[data-theme="dark"] .main-content { background-color:#102a35; background-image:radial-gradient(circle at 90% 3%,rgba(45,212,191,.12),transparent 25rem),radial-gradient(circle at 4% 96%,rgba(14,116,144,.20),transparent 28rem),linear-gradient(140deg,#102a35 0%,#123b43 55%,#132d42 100%); }
+html[data-theme="dark"] .sidebar { background:rgba(19,47,59,.94); border-right-color:rgba(188,230,226,.10); }
+html[data-theme="dark"] .sidebar h5, html[data-theme="dark"] .sidebar small, html[data-theme="dark"] .sidebar-footer, html[data-theme="dark"] .text-reset { color:#e5f4f2 !important; }
+html[data-theme="dark"] .sidebar .nav-link { color:#b5cfce; }
+html[data-theme="dark"] .sidebar .nav-link:hover { color:#f0fffd; background:rgba(45,212,191,.10); }
+html[data-theme="dark"] .child-selector { background:rgba(255,255,255,.07); }
+html[data-theme="dark"] .child-select, html[data-theme="dark"] .child-select option { color:#e5f4f2 !important; background:#173742; }
+html[data-theme="dark"] .liquid-card, html[data-theme="dark"] .topbar-mobile { background:rgba(23,55,66,.82) !important; border-color:rgba(194,232,228,.10) !important; box-shadow:0 14px 35px rgba(0,0,0,.18); }
+html[data-theme="dark"] .top-search-bar, html[data-theme="dark"] .form-control, html[data-theme="dark"] .form-select { background:rgba(255,255,255,.07); border-color:rgba(194,232,228,.15); color:#e5f4f2; }
+html[data-theme="dark"] .form-control::placeholder { color:#9db9b8; }
+html[data-theme="dark"] select,
+html[data-theme="dark"] select.form-select,
+html[data-theme="dark"] select.form-select-sm,
+html[data-theme="dark"] .child-select {
+    background-color: #173742 !important;
+    border-color: rgba(194,232,228,.18) !important;
+    color: #e5f4f2 !important;
+    color-scheme: dark;
+}
+html[data-theme="dark"] select:focus {
+    background-color: #1d4652 !important;
+    border-color: #2dd4bf !important;
+    box-shadow: 0 0 0 .22rem rgba(45,212,191,.14) !important;
+}
+html[data-theme="dark"] select option,
+html[data-theme="dark"] select optgroup {
+    background: #173742;
+    color: #e5f4f2;
+}
+html[data-theme="dark"] select option:checked {
+    background: #0f766e;
+    color: #fff;
+}
+html[data-theme="dark"] .text-muted, html[data-theme="dark"] .text-secondary { color:#afc6c7 !important; }
+html[data-theme="dark"] .list-item-glass { background:rgba(255,255,255,.045); border-color:rgba(194,232,228,.08); }
+html[data-theme="dark"] .list-item-glass:hover { background:rgba(45,212,191,.09); }
+html[data-theme="dark"] .mobile-bottom-nav, html[data-theme="dark"] .dropdown-menu { background:#173742 !important; color:#e5f4f2; }
+html[data-theme="dark"] .dropdown-item, html[data-theme="dark"] .dropdown-header { color:#e5f4f2; }
+html[data-theme="dark"] .dropdown-item:hover { background:rgba(45,212,191,.11); color:#e5f4f2; }
+html[data-theme="dark"] .theme-toggle { border-color:rgba(194,232,228,.17); background:rgba(255,255,255,.07); color:#d5ecea; }
+html[data-theme="dark"] .theme-toggle:hover { background:rgba(45,212,191,.13); color:#5eead4; }
+html[data-theme="dark"] .table { --bs-table-color:#e5f4f2; --bs-table-bg:transparent; --bs-table-border-color:rgba(194,232,228,.12); --bs-table-hover-color:#fff; --bs-table-hover-bg:rgba(255,255,255,.05); }
+@media print { html[data-theme="dark"] body, html[data-theme="dark"] .main-content, html[data-theme="dark"] .liquid-card { background:#fff !important; color:#000 !important; } }
+

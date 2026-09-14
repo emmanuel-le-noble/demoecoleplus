@@ -1,0 +1,1093 @@
+/* =============================================
+   MODERN THEME OVERRIDE - EcolePlus Admin
+   Fichier CSS override chargé en dernier
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --primary-light: #6366f1;
+    --primary-dark: #4338ca;
+    --primary-bg: #eef2ff;
+    --sidebar-bg: #0f172a;
+    --sidebar-hover: #1e293b;
+    --sidebar-active: #4f46e5;
+    --header-bg: #ffffff;
+    --body-bg: #f1f5f9;
+    --card-bg: #ffffff;
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.08);
+    --card-radius: 14px;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    --transition: all 0.2s cubic-bezier(.4,0,.2,1);
+    --sidebar-width: 260px;
+    --sidebar-collapsed: 70px;
+}
+
+/* ====================== GLOBAL RESET ====================== */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+html {
+    overflow-x: hidden !important;
+}
+
+body, .container.body, .main_container {
+    overflow-x: hidden !important;
+}
+
+body {
+    background: var(--body-bg) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    overflow-x: hidden !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* ====================== LAYOUT: SIDEBAR ====================== */
+.col-md-3.left_col {
+    width: var(--sidebar-width) !important;
+    max-width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
+    background: var(--sidebar-bg) !important;
+    min-height: 100vh !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    z-index: 1000 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    float: left !important;
+    display: block !important;
+    padding: 0 !important;
+}
+
+body.nav-sm .col-md-3.left_col {
+    width: var(--sidebar-collapsed) !important;
+    max-width: var(--sidebar-collapsed) !important;
+    min-width: var(--sidebar-collapsed) !important;
+}
+
+.left_col.scroll-view {
+    background: var(--sidebar-bg) !important;
+    padding-bottom: 50px !important;
+    height: 100% !important;
+}
+
+/* ====================== LAYOUT: CONTENT AREA ====================== */
+/* Gentelella only sets margin-left on .right_col. Pages using .left_col[role="main"]
+   get NO margin-left and get dark background from .left_col { background:#2A3F54 }.
+   Force everything with maximum specificity. */
+
+/* Sidebar: keep it fixed, dark, on the left */
+body .container.body .col-md-3.left_col {
+    background: var(--sidebar-bg) !important;
+    position: fixed !important;
+    z-index: 1000 !important;
+}
+
+/* Content area — Pattern A: .right_col (Ecoleplus.php) */
+body .container.body .right_col {
+    background: var(--body-bg) !important;
+    margin-left: var(--sidebar-width) !important;
+}
+
+/* Content area — Pattern B: .left_col[role="main"] (most pages) */
+body .container.body .left_col[role="main"],
+body .main_container .left_col[role="main"],
+body .left_col[role="main"],
+body .left_col[role="main"],
+div.left_col[role="main"] {
+    margin-left: var(--sidebar-width) !important;
+    background: var(--body-bg) !important;
+    float: none !important;
+    width: auto !important;
+    max-width: none !important;
+    display: block !important;
+    position: static !important;
+}
+
+body.nav-sm .container.body .right_col,
+body.nav-sm .container.body .left_col[role="main"] {
+    margin-left: var(--sidebar-collapsed) !important;
+}
+
+/* The right_col INSIDE left_col is NOT the main wrapper — remove its margin */
+body .left_col[role="main"] > .right_col,
+body .left_col[role="main"] > .right_col[role="main"] {
+    margin-left: 0 !important;
+    padding: 15px 20px 0 !important;
+}
+
+/* ====================== LAYOUT: TOP NAV ====================== */
+.top_nav {
+    background: var(--header-bg) !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    margin-left: var(--sidebar-width) !important;
+    min-height: 56px !important;
+    position: relative !important;
+    z-index: 999 !important;
+    padding: 0 !important;
+    float: none !important;
+    width: auto !important;
+}
+
+body.nav-sm .top_nav {
+    margin-left: var(--sidebar-collapsed) !important;
+}
+
+.nav_menu nav {
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 56px !important;
+}
+
+.top_nav .nav.toggle a {
+    color: var(--text-secondary) !important;
+    font-size: 18px !important;
+    padding: 12px 14px !important;
+    transition: var(--transition) !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.top_nav .nav.toggle a:hover {
+    color: var(--primary) !important;
+}
+
+.top_nav .navbar-nav {
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+}
+
+.top_nav .navbar-nav > li {
+    float: none !important;
+    display: inline-block !important;
+}
+
+.top_nav .nav > li > a.user-profile {
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    padding: 12px 14px !important;
+    transition: var(--transition) !important;
+    white-space: nowrap !important;
+    font-family: 'Poppins', sans-serif !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.top_nav .nav > li > a.user-profile:hover {
+    color: var(--primary) !important;
+}
+
+.top_nav .navbar-nav > li > a {
+    color: var(--text-secondary) !important;
+    transition: var(--transition) !important;
+    padding: 12px 10px !important;
+    white-space: nowrap !important;
+    font-size: 13px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.top_nav .navbar-nav > li > a:hover {
+    color: var(--primary) !important;
+}
+
+/* ====================== DROPDOWN MENUS ====================== */
+.dropdown-usermenu {
+    border-radius: 12px !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+    padding: 6px !important;
+    min-width: 220px !important;
+    margin-top: 8px !important;
+    right: 0 !important;
+    left: auto !important;
+}
+
+.dropdown-usermenu > li > a {
+    padding: 9px 14px !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    color: var(--text-primary) !important;
+    transition: var(--transition) !important;
+    display: flex !important;
+    align-items: center !important;
+    font-family: 'Poppins', sans-serif !important;
+    white-space: nowrap !important;
+}
+
+.dropdown-usermenu > li > a:hover {
+    background: var(--primary-bg) !important;
+    color: var(--primary) !important;
+}
+
+.dropdown-usermenu > li > a .fa {
+    margin-right: 10px !important;
+    width: 16px !important;
+    text-align: center !important;
+    flex-shrink: 0 !important;
+}
+
+.dropdown-usermenu > li.divider {
+    height: 1px !important;
+    margin: 4px 8px !important;
+    padding: 0 !important;
+    background: var(--border-color) !important;
+}
+
+.msg_list {
+    min-width: 300px !important;
+    max-width: 360px !important;
+    max-height: 360px !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+    padding: 6px !important;
+    margin-top: 8px !important;
+    right: 0 !important;
+    left: auto !important;
+    overflow-y: auto !important;
+}
+
+.msg_list li {
+    padding: 0 !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.msg_list li:last-child {
+    border-bottom: none !important;
+}
+
+.msg_list li a {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    transition: var(--transition) !important;
+    display: block !important;
+}
+
+.msg_list li a:hover {
+    background: var(--primary-bg) !important;
+}
+
+.msg_list .message {
+    color: var(--text-secondary) !important;
+    font-size: 12px !important;
+    display: block !important;
+    padding: 2px 0 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* ====================== SIDEBAR ====================== */
+.navbar.nav_title {
+    background: transparent !important;
+    border: none !important;
+    padding: 18px 16px !important;
+    margin: 0 !important;
+}
+
+.navbar.nav_title .site_title {
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px;
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+}
+
+.navbar.nav_title .site_title span {
+    font-size: 20px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.site_title sup {
+    color: var(--primary-light) !important;
+    font-size: 12px !important;
+    font-weight: 700;
+}
+
+/* Profile */
+.profile {
+    padding: 12px 16px !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.profile .profile_pic {
+    flex-shrink: 0 !important;
+}
+
+.profile .profile_img {
+    width: 36px !important;
+    height: 36px !important;
+    border: 2px solid rgba(255,255,255,0.15) !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+.profile .profile_info {
+    overflow: hidden !important;
+    flex: 1 !important;
+}
+
+.profile .profile_info span {
+    color: rgba(255,255,255,0.35) !important;
+    font-size: 9.5px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    display: block !important;
+    line-height: 1.2 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.profile .profile_info h2 {
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    margin: 1px 0 0 !important;
+    padding: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Menu section header */
+.menu_section {
+    padding-top: 8px !important;
+}
+
+.menu_section h3 {
+    color: rgba(255,255,255,0.25) !important;
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    padding: 6px 16px 4px !important;
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Main menu items */
+#sidebar-menu .nav.side-menu {
+    padding: 0 8px !important;
+    list-style: none !important;
+}
+
+#sidebar-menu .nav.side-menu > li {
+    margin-bottom: 1px !important;
+    list-style: none !important;
+}
+
+#sidebar-menu .nav.side-menu > li > a {
+    color: rgba(255,255,255,0.6) !important;
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    transition: var(--transition) !important;
+    border-left: none !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    font-family: 'Poppins', sans-serif !important;
+    line-height: 1.4 !important;
+}
+
+#sidebar-menu .nav.side-menu > li > a:hover {
+    color: #ffffff !important;
+    background: var(--sidebar-hover) !important;
+}
+
+#sidebar-menu .nav.side-menu > li.active > a {
+    color: #ffffff !important;
+    background: var(--sidebar-active) !important;
+    font-weight: 600 !important;
+}
+
+#sidebar-menu .nav.side-menu > li > a > b {
+    font-weight: 500 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12px !important;
+}
+
+#sidebar-menu .nav.side-menu > li > a .fa {
+    font-size: 14px !important;
+    width: 20px !important;
+    text-align: center !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+#sidebar-menu .nav.side-menu > li > a .fa-chevron-down,
+#sidebar-menu .nav.side-menu > li > a .fa-chevron-up {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    font-size: 10px !important;
+    transition: var(--transition) !important;
+    opacity: 0.5 !important;
+}
+
+/* Sub-menu */
+#sidebar-menu .nav.child_menu {
+    padding: 1px 0 1px 18px !important;
+    list-style: none !important;
+}
+
+#sidebar-menu .nav.child_menu > li {
+    margin-bottom: 1px !important;
+    list-style: none !important;
+}
+
+#sidebar-menu .nav.child_menu > li > a {
+    color: rgba(255,255,255,0.4) !important;
+    padding: 5px 10px !important;
+    font-size: 11.5px !important;
+    transition: var(--transition) !important;
+    margin: 0 !important;
+    border-radius: 6px !important;
+    display: block !important;
+    text-decoration: none !important;
+    font-family: 'Poppins', sans-serif !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+#sidebar-menu .nav.child_menu > li > a:hover {
+    color: #ffffff !important;
+    background: rgba(255,255,255,0.06) !important;
+}
+
+#sidebar-menu .nav.child_menu > li.active > a {
+    color: #ffffff !important;
+    background: rgba(79,70,229,0.3) !important;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+    background: rgba(0,0,0,0.2) !important;
+    border-top: 1px solid rgba(255,255,255,0.05) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: var(--sidebar-width) !important;
+    z-index: 1001 !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    padding: 10px 0 !important;
+}
+
+body.nav-sm .sidebar-footer {
+    width: var(--sidebar-collapsed) !important;
+}
+
+.sidebar-footer a {
+    color: rgba(255,255,255,0.3) !important;
+    transition: var(--transition) !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+}
+
+.sidebar-footer a:hover {
+    color: #ffffff !important;
+    background: rgba(255,255,255,0.08) !important;
+}
+
+.sidebar-footer a i {
+    font-size: 15px !important;
+}
+
+/* ====================== BADGES ====================== */
+.badge {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.badge.bg-orange {
+    background: var(--warning) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+}
+
+.badge.bg-green {
+    background: var(--success) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 5px 12px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+.badge.bg-blue {
+    background: var(--info) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 5px 12px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+.badge.bg-red {
+    background: var(--danger) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    padding: 5px 10px !important;
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    white-space: normal !important;
+    max-width: 280px !important;
+}
+
+.info-number {
+    position: relative !important;
+}
+
+.info-number > .badge {
+    position: absolute !important;
+    top: 4px !important;
+    right: 2px !important;
+    font-size: 9px !important;
+    padding: 2px 5px !important;
+    border-radius: 50% !important;
+    min-width: 16px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
+}
+
+/* ====================== CARDS / PANELS ====================== */
+.x_panel {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--card-radius) !important;
+    box-shadow: var(--card-shadow) !important;
+    margin-bottom: 20px !important;
+    transition: var(--transition) !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    /* Force override des ombres inline des anciennes pages */
+    -webkit-box-shadow: var(--card-shadow) !important;
+}
+
+.x_panel:hover {
+    box-shadow: var(--card-shadow-hover) !important;
+}
+
+.x_title {
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 14px 18px !important;
+    margin-bottom: 0 !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.x_title h2 {
+    color: var(--text-primary) !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Poppins', sans-serif !important;
+    /* Force override Comic Sans MS */
+    letter-spacing: normal !important;
+}
+
+.x_title h2 small {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: var(--text-secondary) !important;
+}
+
+.x_title ul.panel_toolbox {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    list-style: none !important;
+    align-items: center !important;
+}
+
+.x_title ul.panel_toolbox > li > a {
+    color: var(--text-muted) !important;
+    transition: var(--transition) !important;
+}
+
+.x_title ul.panel_toolbox > li > a:hover {
+    color: var(--primary) !important;
+}
+
+.x_content {
+    padding: 18px !important;
+}
+
+/* ====================== TABLES ====================== */
+.table {
+    width: 100% !important;
+}
+
+.table > thead > tr > th {
+    background: #f8fafc !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    padding: 10px 14px !important;
+    font-family: 'Poppins', sans-serif !important;
+    white-space: nowrap !important;
+}
+
+.table > tbody > tr > td {
+    color: var(--text-primary) !important;
+    font-size: 13px !important;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    vertical-align: middle !important;
+    font-family: 'Poppins', sans-serif !important;
+    white-space: nowrap !important;
+}
+
+.table > tbody > tr:hover > td {
+    background: var(--primary-bg) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background: #fafbfc !important;
+}
+
+/* DataTables */
+.dataTables_wrapper {
+    width: 100% !important;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    color: var(--text-secondary) !important;
+    font-size: 13px !important;
+    padding: 10px 4px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1.5px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 6px !important;
+    margin: 0 2px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover:not(.current) {
+    background: var(--primary-bg) !important;
+    border-color: var(--primary-light) !important;
+    color: var(--primary) !important;
+}
+
+/* ====================== BUTTONS ====================== */
+.btn {
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    padding: 8px 16px !important;
+    transition: var(--transition) !important;
+    border: none !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+    font-family: 'Poppins', sans-serif !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    white-space: nowrap !important;
+    /* Force override des ombres inline */
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+}
+
+.btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    -webkit-box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.btn:active {
+    transform: translateY(0) !important;
+}
+
+.btn-primary { background: var(--primary) !important; color: #fff !important; }
+.btn-primary:hover, .btn-primary:focus { background: var(--primary-dark) !important; color: #fff !important; }
+
+.btn-success { background: var(--success) !important; color: #fff !important; }
+.btn-success:hover, .btn-success:focus { background: #059669 !important; color: #fff !important; }
+
+.btn-danger { background: var(--danger) !important; color: #fff !important; }
+.btn-danger:hover, .btn-danger:focus { background: #dc2626 !important; color: #fff !important; }
+
+.btn-warning { background: var(--warning) !important; color: #fff !important; }
+.btn-warning:hover, .btn-warning:focus { background: #d97706 !important; color: #fff !important; }
+
+.btn-info { background: var(--info) !important; color: #fff !important; }
+.btn-info:hover, .btn-info:focus { background: #2563eb !important; color: #fff !important; }
+
+.btn-default { background: #fff !important; color: var(--text-primary) !important; border: 1px solid var(--border-color) !important; }
+.btn-default:hover { background: #f8fafc !important; border-color: #cbd5e1 !important; }
+
+.btn-round { border-radius: 20px !important; }
+
+.btn-xs {
+    padding: 4px 10px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+}
+
+.btn-link {
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+/* ====================== FORMS ====================== */
+.form-control {
+    border: 1.5px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    color: var(--text-primary) !important;
+    transition: var(--transition) !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    background: #fff !important;
+    font-family: 'Poppins', sans-serif !important;
+    width: 100% !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary-light) !important;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.1) !important;
+    outline: none !important;
+}
+
+.control-label {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+    font-size: 12.5px !important;
+    margin-bottom: 6px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Select2 */
+.select2-container--default .select2-selection--single {
+    border: 1.5px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    height: 36px !important;
+    padding: 4px 10px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: var(--text-primary) !important;
+    font-size: 13px !important;
+    line-height: 28px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 34px !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: var(--primary-light) !important;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.1) !important;
+}
+
+/* ====================== ALERTS ====================== */
+.alert {
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+    margin-bottom: 16px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.alert-success { background: #ecfdf5 !important; color: #065f46 !important; border-left: 4px solid var(--success) !important; }
+.alert-danger { background: #fef2f2 !important; color: #991b1b !important; border-left: 4px solid var(--danger) !important; }
+.alert-warning { background: #fffbeb !important; color: #92400e !important; border-left: 4px solid var(--warning) !important; }
+.alert-info { background: #eff6ff !important; color: #1e40af !important; border-left: 4px solid var(--info) !important; }
+
+/* ====================== LABELS / TAGS ====================== */
+.label {
+    border-radius: 6px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.label-success { background: var(--success) !important; }
+.label-danger { background: var(--danger) !important; }
+.label-warning { background: var(--warning) !important; }
+.label-info { background: var(--info) !important; }
+.label-primary { background: var(--primary) !important; }
+
+/* ====================== MODALS ====================== */
+.modal-content {
+    border-radius: 16px !important;
+    border: none !important;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.18) !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 18px 24px !important;
+}
+
+.modal-header .modal-title {
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.modal-body { padding: 24px !important; }
+.modal-footer { border-top: 1px solid var(--border-color) !important; padding: 14px 24px !important; }
+
+/* ====================== PROGRESS BAR ====================== */
+.progress {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background: #e2e8f0 !important;
+    height: 6px !important;
+}
+
+.progress-bar { border-radius: 10px !important; }
+
+/* ====================== WELLS ====================== */
+.well {
+    border-radius: var(--card-radius) !important;
+    border: none !important;
+    box-shadow: var(--card-shadow) !important;
+    background: var(--card-bg) !important;
+}
+
+/* ====================== PAGINATION ====================== */
+.pagination > li > a {
+    color: var(--primary) !important;
+    border-radius: 8px !important;
+    margin: 0 2px !important;
+    transition: var(--transition) !important;
+    border: 1px solid var(--border-color) !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.pagination > li > a:hover {
+    background: var(--primary-bg) !important;
+    color: var(--primary-dark) !important;
+}
+
+.pagination > .active > a {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+/* ====================== TABS ====================== */
+.nav-tabs > li > a {
+    border-radius: 8px 8px 0 0 !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    transition: var(--transition) !important;
+    border: 1px solid transparent !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.nav-tabs > li > a:hover {
+    background: var(--primary-bg) !important;
+    color: var(--primary) !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background: var(--card-bg) !important;
+    color: var(--primary) !important;
+    border-color: var(--border-color) !important;
+    border-bottom-color: var(--card-bg) !important;
+    font-weight: 600 !important;
+}
+
+/* ====================== LIST GROUP ====================== */
+.list-group-item {
+    border: 1px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    margin-bottom: 4px !important;
+    transition: var(--transition) !important;
+}
+
+.list-group-item:hover {
+    background: var(--primary-bg) !important;
+}
+
+/* ====================== TOOLTIPS ====================== */
+.tooltip-inner {
+    background: var(--sidebar-bg) !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* ====================== FOOTER ====================== */
+.footer {
+    background: var(--card-bg) !important;
+    border-top: 1px solid var(--border-color) !important;
+    padding: 14px 24px !important;
+    margin-left: var(--sidebar-width) !important;
+}
+
+body.nav-sm .footer {
+    margin-left: var(--sidebar-collapsed) !important;
+}
+
+.footer p {
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+    font-family: 'Poppins', sans-serif !important;
+    margin: 0 !important;
+}
+
+/* ====================== ANIMATIONS ====================== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.x_panel {
+    animation: fadeInUp 0.2s ease;
+}
+
+/* ====================== SCROLLBAR ====================== */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track { background: transparent; }
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+.left_col::-webkit-scrollbar { width: 4px; }
+.left_col::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+/* ====================== iCheck ====================== */
+.icheckbox_flat-green,
+.iradio_flat-green {
+    position: relative !important;
+}
+
+/* ====================== CALENDAR ====================== */
+.CalendarControl { z-index: 10000 !important; }
+
+/* ====================== STYLE OVERRIDES (anciens inline styles) ====================== */
+/* Supprime les box-shadows excessives des anciennes pages */
+[style*="box-shadow: 8px"],
+[style*="box-shadow:5px"],
+[style*="box-shadow: 5px"],
+[style*="box-shadow:8px"] {
+    box-shadow: var(--card-shadow) !important;
+    -webkit-box-shadow: var(--card-shadow) !important;
+}
+
+/* Supprime les largeurs fixes des boutons qui debordent */
+[style*="width:90px"],
+[style*="width:100px"],
+[style*="width:110px"],
+[style*="width:120px"],
+[style*="width:130px"],
+[style*="width:150px"] {
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+/* Force Poppins partout */
+h1, h2, h3, h4, h5, h6, p, span, a, td, th, li, div, input, button, select, textarea {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Supprime les text-shadows des anciennes pages */
+[style*="text-shadow"] {
+    text-shadow: none !important;
+}
+
+/* ====================== PRINT ====================== */
+@media print {
+    .top_nav, .left_col, .footer, .sidebar-footer, .nav_menu { display: none !important; }
+    .left_col[role="main"] { margin-left: 0 !important; }
+    .footer { margin-left: 0 !important; }
+    .x_panel { box-shadow: none !important; border: 1px solid #ddd !important; page-break-inside: avoid !important; }
+}
+
+/* ====================== RESPONSIVE ====================== */
+@media (max-width: 991px) {
+    .col-md-3.left_col { display: none !important; }
+    .left_col[role="main"] { margin-left: 0 !important; }
+    .top_nav { margin-left: 0 !important; }
+    .footer { margin-left: 0 !important; }
+    .sidebar-footer { display: none !important; }
+}

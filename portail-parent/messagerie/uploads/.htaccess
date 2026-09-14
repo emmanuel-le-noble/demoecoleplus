@@ -1,0 +1,5 @@
+# Sécurité : Bloquer l'exécution et l'accès direct aux scripts dans le dossier de téléversement
+<FilesMatch "(?i)\.(php|phtml|php3|php4|php5|php7|php8|phps|pht|phar|shtml|shtm|pl|py|cgi)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>

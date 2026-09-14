@@ -1,0 +1,12 @@
+# ==========================================================================
+# SÉCURITÉ - DÉSACTIVATION DE L'EXÉCUTION DE SCRIPTS DANS /uploads
+# Portail Parent Ecole Plus
+# ==========================================================================
+
+# 1. Désactivation de l'indexation et des scripts CGI
+Options -Indexes -ExecCGI
+
+# 2. Interdire l'accès aux fichiers scripts (PHP, etc.)
+<FilesMatch "\.(php|phtml|php[3-7]|phps|pht|phar|cgi|pl|py|sh|asp|aspx|jsp)$">
+    Require all denied
+</FilesMatch>
