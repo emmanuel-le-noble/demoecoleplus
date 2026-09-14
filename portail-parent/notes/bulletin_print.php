@@ -168,7 +168,7 @@ if (!$donnees) {
       color:var(--primary);
       margin:0;
       background:#fff;
-      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact; -ms-print-color-adjust:exact;
     }
     .sheet{width:100%; margin:0 auto;}
     .header{display:grid; grid-template-columns:1fr 1fr; gap:0mm; align-items: baseline; margin-bottom:8mm;}
@@ -222,7 +222,7 @@ if (!$donnees) {
     /* Print tweaks */
     @media print {
       .sheet{max-width:none}
-      .title{ -webkit-print-color-adjust:exact; }
+      .title{ -webkit-print-color-adjust:exact; print-color-adjust:exact; -ms-print-color-adjust:exact; }
       a[href^="http"]:after{ content:"" }
     }
 	
