@@ -116,6 +116,16 @@ $enfant_actif_id = (int)($enfant_actif_id ?? $_SESSION['active_eleve_id'] ?? 0);
                         <i class="fa-regular fa-comment me-3 text-muted" style="width: 20px;"></i> Messagerie
                     </a>
                 </li>
+                <li>
+                    <a href="../emploi_temps/emploi_temps.php" class="nav-link text-dark py-2 px-3 d-flex align-items-center <?= $current_page === 'emploi_temps.php' ? 'active' : '' ?>" style="border-radius: 8px;">
+                        <i class="fa-solid fa-calendar-days me-3 text-muted" style="width: 20px;"></i> Emploi du temps
+                    </a>
+                </li>
+                <li>
+                    <a href="../professeurs/professeurs.php" class="nav-link text-dark py-2 px-3 d-flex align-items-center <?= $current_page === 'professeurs.php' ? 'active' : '' ?>" style="border-radius: 8px;">
+                        <i class="fa-solid fa-chalkboard-user me-3 text-muted" style="width: 20px;"></i> Professeurs
+                    </a>
+                </li>
             </ul>
         </div>
 
