@@ -330,22 +330,23 @@ VALUES
 -- (Les paiementtype existent déjà dans le dump de base)
 
 -- ── Montant dû par classe (paiementtypeclasse) ──
--- Classe 1ère D : 150 000 FCFA de scolarité
--- Classe CE2    : 120 000 FCFA de scolarité
-INSERT INTO `paiementtypeclasse` (`IDCLASSE`, `IDANNEESCOLAIRE`, `MONTANT`, `STATUT`, `REMISE`, `IDTYPEFRAIS`)
-VALUES
-    (16, 1, 150000, 1, NULL, 1),
-    (7, 1, 120000, 1, NULL, 1);
+-- Les montants pour les classes 16 (1ère D) et 7 (CE2) existent déjà
+-- dans le dump de base (ID=8 et ID=9, montant 272000 et 204000).
+-- Aucun INSERT supplémentaire nécessaire ici.
 
 -- ── Paiements effectués (paiementfrais) ──
--- Élève 1 (IDELEVEANNEESCOLAIRE=1) : payé 50 000 + 50 000 = 100 000 sur 150 000 → reste 50 000
--- Élève 2 (IDELEVEANNEESCOLAIRE=2) : payé 120 000 sur 120 000 → tout payé
-INSERT INTO `paiementfrais` (`IDELEVEANNEESCOLAIRE`, `IDANNEESCOLAIRE`, `MONTANT`, `DATE`, `NOMPAYEUR`, `STATUT`)
+-- ID 1-2 existent déjà dans ecole_plus.sql :
+--   ID=1 : KOWOUVI (classe 16), 70 000 FCFA le 2026-02-16
+--   ID=2 : AHOLOU (classe 7), 45 000 FCFA le 2026-03-23
+-- On ajoute des paiements supplémentaires (ID 3+) :
+-- Élève 1 (classe 16, IDPAIEMENTTYPECLASSE=8) : +60 000 + 70 000 → total 200 000 / 272 000
+-- Élève 2 (classe 7, IDPAIEMENTTYPECLASSE=19) : +50 000 + 90 000 → total 185 000 / 185 000
+INSERT INTO `paiementfrais` (`IDPAIEMENTTYPECLASSE`, `IDELEVEANNEESCOLAIRE`, `IDANNEESCOLAIRE`, `MONTANT`, `DATE`, `STATUT`, `IDUSERAJOUT`, `IDUSERDELETE`, `NOMPAYEUR`, `TELPAYEUR`)
 VALUES
-    (1, 1, 50000, '2025-09-15', 'KOUASSI Jean-Pierre', 1),
-    (1, 1, 50000, '2025-10-20', 'KOUASSI Jean-Pierre', 1),
-    (2, 1, 60000, '2025-09-15', 'AGBENOUGLO Marie', 1),
-    (2, 1, 60000, '2025-11-05', 'AGBENOUGLO Marie', 1);
+    (8,  1, 1, 60000, '2025-10-01', 1, 103, 0, 'KOUASSI Jean-Pierre', '(228) 90123456'),
+    (8,  1, 1, 70000, '2026-01-15', 1, 103, 0, 'KOUASSI Jean-Pierre', '(228) 90123456'),
+    (19, 2, 1, 50000, '2025-10-05', 1, 103, 0, 'AGBENOUGLO Marie', '(228) 91234567'),
+    (19, 2, 1, 90000, '2026-02-10', 1, 103, 0, 'AGBENOUGLO Marie', '(228) 91234567');
 
 
 -- ##########################################################################
