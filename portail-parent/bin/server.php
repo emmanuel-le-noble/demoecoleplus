@@ -12,6 +12,12 @@
 
 declare(strict_types=1);
 
+// Ce script doit être exécuté uniquement en CLI (pas via un navigateur)
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    exit('Accès interdit — Ce script doit être exécuté en ligne de commande.');
+}
+
 // Masque les alertes de dépréciation (Deprecated) pour nettoyer la console
 error_reporting(E_ALL & ~E_DEPRECATED);
 

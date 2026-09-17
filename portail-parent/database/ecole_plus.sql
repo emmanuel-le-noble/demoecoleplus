@@ -65,7 +65,8 @@ CREATE TABLE `anneescolaire` (
 --
 
 INSERT INTO `anneescolaire` (`ID`, `LIBELLE`, `STATUT`) VALUES
-(1, '2025 - 2026', 1);
+(1, '2025 - 2026', 1),
+(2, '2026 - 2027', 1);
 
 -- --------------------------------------------------------
 
@@ -765,7 +766,22 @@ INSERT INTO `journalisation` (`ID`, `IDUSER`, `ACTION`, `VALEUR`, `DATEACTION`) 
 (18, 103, 'Connecter', 'Connexion à l\'application', '2026-06-01 22:41:21'),
 (19, 103, 'Connecter', 'Connexion à l\'application', '2026-06-02 00:03:46'),
 (20, 103, 'Connecter', 'Connexion à l\'application', '2026-06-02 06:14:39'),
-(21, 103, 'Connecter', 'Connexion à l\'application', '2026-06-02 09:47:02');
+(21, 103, 'Connecter', 'Connexion à l\'application', '2026-06-02 09:47:02'),
+(22, 103, 'Connecter', 'Connexion à l\'application', '2026-06-04 19:53:24'),
+(23, 103, 'Connecter', 'Connexion à l\'application', '2026-06-25 12:06:42'),
+(24, 103, 'Connecter', 'Connexion à l\'application', '2026-06-25 13:30:35'),
+(25, 103, 'Connecter', 'Connexion à l\'application', '2026-06-26 01:06:05'),
+(26, 103, 'Connecter', 'Connexion à l\'application', '2026-06-26 01:10:25'),
+(27, 103, 'Connecter', 'Connexion à l\'application', '2026-07-23 01:06:09'),
+(28, 103, 'Connecter', 'Connexion à l\'application', '2026-07-23 21:56:42'),
+(29, 103, 'Connecter', 'Connexion à l\'application', '2026-08-17 21:41:05'),
+(30, 103, 'Connecter', 'Connexion à l\'application', '2026-08-18 02:00:06'),
+(31, 103, 'Connecter', 'Connexion à l\'application', '2026-08-18 06:28:16'),
+(32, 103, 'Connecter', 'Connexion à l\'application', '2026-08-18 19:55:55'),
+(33, 103, 'Connecter', 'Connexion à l\'application', '2026-09-04 23:29:35'),
+(34, 103, 'Connecter', 'Connexion à l\'application', '2026-09-04 23:33:20'),
+(35, 103, 'Connecter', 'Connexion à l\'application', '2026-09-05 14:04:00'),
+(36, 103, 'Connecter', 'Connexion à l\'application', '2026-09-07 15:48:35');
 
 -- --------------------------------------------------------
 
@@ -819,7 +835,8 @@ INSERT INTO `matiere` (`ID_MATIERE`, `CODE_MATIERE`, `NOM_MATIERE`, `STATUT_MATI
 (45, 'CALCUL MENTAL', 'CALCUL MENTAL', 1),
 (46, 'PROBLEME', 'PROBLEME', 1),
 (47, 'SCIENCE ET TECHNOLOGIES', 'SCIENCE ET TECHNOLOGIES', 1),
-(48, 'SCIENCE HUMAINES', 'SCIENCE HUMAINES', 1);
+(48, 'SCIENCE HUMAINES', 'SCIENCE HUMAINES', 1),
+(50, 'ARB', 'ARABE', 1);
 
 -- --------------------------------------------------------
 
@@ -1537,7 +1554,8 @@ CREATE TABLE `professeur` (
 --
 
 INSERT INTO `professeur` (`ID`, `NOM`, `TITRE`, `CONTACT`, `SIGNATURE`, `STATUT`, `IDANNEESCOLAIRE`, `CORPS`, `DATEEMBAUCHE`, `DATENAISSANCE`, `PERSONNEACHARGE`, `LIEUNAISSANCE`, `NUMCNSS`, `NUMCOMPTEBANCAIRE`, `IDBANQUE`, `DEBUTCONTRAT`, `FINCONTRAT`, `MODEPAIEMENT`, `CREATE_ID`, `DELETE_ID`) VALUES
-(1, 'AGODJI Jacob', '4', '90000025', 'Signature.png', 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'AGODJI Jacob', '4', '90000025', 'Signature.png', 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'AGBESSI Yao Christian', '4', '90000000', '', 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1596,7 +1614,8 @@ CREATE TABLE `professeursallemat` (
 INSERT INTO `professeursallemat` (`ID`, `IDPROF`, `IDSALLE`, `IDMAT`, `IDANNEESCOLAIRE`, `IDTITRE`, `STATUT`) VALUES
 (1, 1, 1, 6, 1, 4, 1),
 (2, 1, 2, 7, 1, 4, 1),
-(3, 1, 2, 6, 1, 4, 1);
+(3, 1, 2, 6, 1, 4, 1),
+(4, 2, 15, 24, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1741,7 +1760,8 @@ CREATE TABLE `utilisateur` (
 INSERT INTO `utilisateur` (`ID`, `NOM_USER`, `PRENOM_USER`, `LOGIN_USER`, `MTPASS_USER`, `PROFIL`, `STATUT`, `TYPE`) VALUES
 (102, 'KOWU', 'Michel', 'mkowu', 'mkowu@ecoleplus.tg', 'Administrateur', 1, 'Non'),
 (103, 'Demo', 'Demo', 'demo@ecoleplus.tg', 'Demo@2026', 'Administrateur', 1, 'Non'),
-(1774264514, 'AZIAGBE', 'Kenneth', 'kaziagbe', '90372347', 'Directeur', 1, 'Non');
+(1774264514, 'AZIAGBE', 'Kenneth', 'kaziagbe', '90372347', 'Directeur', 1, 'Non'),
+(1782387349, 'DOGBEDA', 'Yaovi', 'dogbeda@gmail.com', '12345678', 'Administrateur', 1, 'Non');
 
 -- --------------------------------------------------------
 
@@ -1860,6 +1880,44 @@ CREATE TABLE `bulletin_calcule` (
   `NOMBRE_MATIERES` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `DATE_CALCUL` datetime NOT NULL DEFAULT current_timestamp(),
   `EST_GELE` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `otp_codes`
+--
+
+CREATE TABLE `otp_codes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `type` varchar(20) NOT NULL COMMENT 'login|registration|password_reset',
+  `code_hash` char(64) NOT NULL COMMENT 'SHA-256 du code OTP',
+  `email` varchar(255) DEFAULT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `expires_at` datetime NOT NULL,
+  `attempts` int(11) NOT NULL DEFAULT 0,
+  `used_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `ip_address` varchar(45) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `parent_invitations`
+--
+
+CREATE TABLE `parent_invitations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `eleve_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `telephone` varchar(50) NOT NULL,
+  `token_hash` char(64) NOT NULL COMMENT 'SHA-256 du token',
+  `token_plain` varchar(128) NOT NULL COMMENT 'Token en clair (pour URL)',
+  `expires_at` datetime NOT NULL,
+  `used_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2316,7 +2374,7 @@ ALTER TABLE `absences`
 -- AUTO_INCREMENT pour la table `anneescolaire`
 --
 ALTER TABLE `anneescolaire`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `annonces_ecole`
@@ -2508,13 +2566,13 @@ ALTER TABLE `jour`
 -- AUTO_INCREMENT pour la table `journalisation`
 --
 ALTER TABLE `journalisation`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `matiere`
 --
 ALTER TABLE `matiere`
-  MODIFY `ID_MATIERE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `ID_MATIERE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT pour la table `matierecoefficient`
@@ -2646,7 +2704,7 @@ ALTER TABLE `pretremboursement`
 -- AUTO_INCREMENT pour la table `professeur`
 --
 ALTER TABLE `professeur`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `professeurdonneepaie`
@@ -2658,7 +2716,7 @@ ALTER TABLE `professeurdonneepaie`
 -- AUTO_INCREMENT pour la table `professeursallemat`
 --
 ALTER TABLE `professeursallemat`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `professeurtitre`
@@ -2694,7 +2752,7 @@ ALTER TABLE `typefrais`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1774264515;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1782387350;
 
 --
 -- AUTO_INCREMENT pour la table `sessions_parents`
@@ -2791,6 +2849,35 @@ ALTER TABLE `bulletin_calcule`
 --
 ALTER TABLE `bulletin_calcule`
   MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Index pour la table `otp_codes`
+--
+ALTER TABLE `otp_codes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_otp_parent_id` (`parent_id`),
+  ADD KEY `idx_otp_expires_at` (`expires_at`),
+  ADD KEY `idx_otp_type` (`type`);
+
+--
+-- AUTO_INCREMENT pour la table `otp_codes`
+--
+ALTER TABLE `otp_codes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Index pour la table `parent_invitations`
+--
+ALTER TABLE `parent_invitations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_invitation_token` (`token_hash`),
+  ADD KEY `idx_invitation_eleve` (`eleve_id`);
+
+--
+-- AUTO_INCREMENT pour la table `parent_invitations`
+--
+ALTER TABLE `parent_invitations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées

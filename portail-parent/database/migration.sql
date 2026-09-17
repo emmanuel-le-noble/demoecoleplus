@@ -1,18 +1,23 @@
 -- ==========================================================================
--- MIGRATION COMPLÈTE — Ecole Plus Portail Parent v1.2.0
+-- MIGRATION COMPLÈTE — Ecole Plus Portail Parent v1.3.0
 --
--- Fichier unique regroupant toutes les migrations de la base
--- goodh2642221_59bsri. À exécuter une seule fois.
+-- Fichier unique de migration de la base goodh2642221_59bsri
+-- vers le schéma actuel du portail parent.
+--
+-- À exécuter UNE SEULE FOIS sur la base goodh2642221_59bsri.
 --
 -- Compatible : MySQL 8.0+ / MariaDB 10.11+
--- Date : 2026-07-06
+-- Date : 2026-09-17
 --
 -- Ordre d'exécution garanti :
 --   1. Tables nouvelles (IF NOT EXISTS)
 --   2. Colonnes manquantes (ALTER TABLE)
---   3. Restructuration parents
+--   3. Restructuration table parents
 --   4. Index optimisés
+--   5. Données manquantes
 -- ==========================================================================
+
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ##########################################################################
 -- SECTION 1 — TABLES NOUVELLES
@@ -23,10 +28,10 @@
 -- -------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sessions_parents` (
     `id`            VARCHAR(128) NOT NULL COMMENT 'Identifiant de session (session_id)',
-    `parent_id`     INT UNSIGNED DEFAULT NULL COMMENT 'ID du parent connecté (indexé pour Nettoyage)',
+    `parent_id`     INT UNSIGNED DEFAULT NULL COMMENT 'ID du parent connecté',
     `ip_address`    VARCHAR(45)  NOT NULL DEFAULT '' COMMENT 'IP du client (IPv4 ou IPv6)',
     `user_agent`    TEXT         NOT NULL COMMENT 'User-Agent du navigateur',
-    `payload`       LONGTEXT     NOT NULL COMMENT 'Données sérialisées de la session ($_SESSION)',
+    `payload`       LONGTEXT     NOT NULL COMMENT 'Données sérialisées de la session',
     `last_activity` INT UNSIGNED NOT NULL COMMENT 'Timestamp UNIX de dernière activité',
     `created_at`    DATETIME     DEFAULT CURRENT_TIMESTAMP COMMENT 'Date de création',
     PRIMARY KEY (`id`),
@@ -138,6 +143,45 @@ CREATE TABLE IF NOT EXISTS `msg_pieces_jointes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   COMMENT='Pièces jointes aux messages de messagerie';
 
+-- -------------------------------------------------------------------------
+-- 1.5 Table otp_codes — Codes OTP pour authentification à deux facteurs
+-- -------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `otp_codes` (
+    `id`         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `parent_id`  INT(11)         NOT NULL,
+    `type`       VARCHAR(20)     NOT NULL COMMENT 'login|registration|password_reset',
+    `code_hash`  CHAR(64)        NOT NULL COMMENT 'SHA-256 du code OTP',
+    `email`      VARCHAR(255)    DEFAULT NULL,
+    `telephone`  VARCHAR(50)     DEFAULT NULL,
+    `expires_at` DATETIME        NOT NULL,
+    `attempts`   INT(11)         NOT NULL DEFAULT 0,
+    `used_at`    DATETIME        DEFAULT NULL,
+    `created_at` DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ip_address` VARCHAR(45)     NOT NULL DEFAULT '',
+    PRIMARY KEY (`id`),
+    KEY `idx_otp_parent_id` (`parent_id`),
+    KEY `idx_otp_expires_at` (`expires_at`),
+    KEY `idx_otp_type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- -------------------------------------------------------------------------
+-- 1.6 Table parent_invitations — Jetons d'invitation parent
+-- -------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `parent_invitations` (
+    `id`          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `eleve_id`    INT(11)         NOT NULL,
+    `email`       VARCHAR(255)    NOT NULL,
+    `telephone`   VARCHAR(50)     NOT NULL,
+    `token_hash`  CHAR(64)        NOT NULL COMMENT 'SHA-256 du token',
+    `token_plain` VARCHAR(128)    NOT NULL COMMENT 'Token en clair (pour URL)',
+    `expires_at`  DATETIME        NOT NULL,
+    `used_at`     DATETIME        DEFAULT NULL,
+    `created_at`  DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    KEY `idx_invitation_token` (`token_hash`),
+    KEY `idx_invitation_eleve` (`eleve_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 -- ##########################################################################
 -- SECTION 2 — AJOUT DE COLONNES MANQUANTES
@@ -185,8 +229,6 @@ PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 -- par le code : ID_PARENT, NOM_PARENT, PRENOM_PARENT, SEXE_PARENT,
 -- TEL_PARENT, MAIL_PARENT, LOGIN_PARENT, MTPASS_PARENT, STATUT_PARENT,
 -- GOOGLE_SUB, DATE_CREATION.
---
--- Chaque étape est idempotente grâce à des vérifications INFORMATIOM_SCHEMA.
 -- -------------------------------------------------------------------------
 
 -- 3.1 Sauvegarder l'ancienne table si elle a l'ancien schéma
@@ -381,6 +423,52 @@ DROP PROCEDURE IF EXISTS `create_index_if_not_exists`;
 
 
 -- ##########################################################################
+-- SECTION 5 — DONNÉES MANQUANTES
+-- ##########################################################################
+
+-- 5.1 anneescolaire : ajouter l'année scolaire 2026-2027
+INSERT IGNORE INTO `anneescolaire` (`ID`, `LIBELLE`, `STATUT`) VALUES (2, '2026 - 2027', 1);
+
+-- 5.2 classe : corriger le nom de la classe ID=21
+UPDATE `classe` SET `CODECLASSE` = 'Tle A4', `NOMCLASSE` = 'Tle A4' WHERE `IDCLASSE` = 21;
+
+-- 5.3 matiere : ajouter ARABE
+INSERT IGNORE INTO `matiere` (`ID_MATIERE`, `CODE_MATIERE`, `NOM_MATIERE`, `STATUT_MATIERE`) VALUES (50, 'ARB', 'ARABE', 1);
+
+-- 5.4 professeur : ajouter AGBESSI Yao Christian
+INSERT IGNORE INTO `professeur` (`ID`, `NOM`, `TITRE`, `CONTACT`, `SIGNATURE`, `STATUT`, `IDANNEESCOLAIRE`, `CORPS`)
+VALUES (2, 'AGBESSI Yao Christian', '4', '90000000', '', 1, 1, 1);
+
+-- 5.5 professeursallemat : ajouter l'affectation du prof 2
+INSERT IGNORE INTO `professeursallemat` (`ID`, `IDPROF`, `IDSALLE`, `IDMAT`, `IDANNEESCOLAIRE`, `IDTITRE`, `STATUT`)
+VALUES (4, 2, 15, 24, 1, 1, 1);
+
+-- 5.6 utilisateur : ajouter DOGBEDA Yaovi
+INSERT IGNORE INTO `utilisateur` (`ID`, `NOM_USER`, `PRENOM_USER`, `LOGIN_USER`, `MTPASS_USER`, `PROFIL`, `STATUT`, `TYPE`)
+VALUES (1782387349, 'DOGBEDA', 'Yaovi', 'dogbeda@gmail.com', '12345678', 'Administrateur', 1, 'Non');
+
+-- 5.7 journalisation : ajouter les 15 entrées manquantes
+INSERT IGNORE INTO `journalisation` (`ID`, `IDUSER`, `ACTION`, `VALEUR`, `DATEACTION`) VALUES
+(22, 103, 'Connecter', 'Connexion à l''application', '2026-06-04 19:53:24'),
+(23, 103, 'Connecter', 'Connexion à l''application', '2026-06-25 12:06:42'),
+(24, 103, 'Connecter', 'Connexion à l''application', '2026-06-25 13:30:35'),
+(25, 103, 'Connecter', 'Connexion à l''application', '2026-06-26 01:06:05'),
+(26, 103, 'Connecter', 'Connexion à l''application', '2026-06-26 01:10:25'),
+(27, 103, 'Connecter', 'Connexion à l''application', '2026-07-23 01:06:09'),
+(28, 103, 'Connecter', 'Connexion à l''application', '2026-07-23 21:56:42'),
+(29, 103, 'Connecter', 'Connexion à l''application', '2026-08-17 21:41:05'),
+(30, 103, 'Connecter', 'Connexion à l''application', '2026-08-18 02:00:06'),
+(31, 103, 'Connecter', 'Connexion à l''application', '2026-08-18 06:28:16'),
+(32, 103, 'Connecter', 'Connexion à l''application', '2026-08-18 19:55:55'),
+(33, 103, 'Connecter', 'Connexion à l''application', '2026-09-04 23:29:35'),
+(34, 103, 'Connecter', 'Connexion à l''application', '2026-09-04 23:33:20'),
+(35, 103, 'Connecter', 'Connexion à l''application', '2026-09-05 14:04:00'),
+(36, 103, 'Connecter', 'Connexion à l''application', '2026-09-07 15:48:35');
+
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ##########################################################################
 -- FIN DE LA MIGRATION
 -- ==========================================================================
 -- Vérification :
@@ -388,7 +476,8 @@ DROP PROCEDURE IF EXISTS `create_index_if_not_exists`;
 --   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME IN
 --   ('sessions_parents','password_resets_parents','bulletin_calcule',
 --    'msg_conversations','msg_messages','msg_participants',
---    'msg_statuts_lecture','msg_pieces_jointes','parents');
+--    'msg_statuts_lecture','msg_pieces_jointes','otp_codes',
+--    'parent_invitations','parents');
 --
 --   SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
 --   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'note'
